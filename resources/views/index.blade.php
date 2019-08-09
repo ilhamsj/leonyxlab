@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-</head>
-<body>
-    <table id="example" class="display" style="width:100%">
+@extends('layouts.master')
+
+@section('content')
+<div class="container">
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
@@ -32,13 +26,20 @@
             </tr>
         </tfoot>
     </table>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</div>
 
+@endsection
+
+@push('scripts')
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            var table = $('#example').DataTable();
+            
+            $('#example tbody').on('click', 'tr', function () {
+                var data = table.row( this ).data();
+                alert( 'You clicked on '+data[0]+'\'s row' );
+            } );
         } );
     </script>
-</body>
-</html>
+@endpush
+
