@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'AdminController@index');
+Route::get('/data_user', 'AdminController@data_user')->name('data.user');

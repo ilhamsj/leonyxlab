@@ -2,27 +2,21 @@
 
 @section('content')
 <div class="container">
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            @forelse ($collection as $item)
-                <tr>
-                    <td>{{$item->name}}</td>
-                    <td>{{$item->email}}</td>
-                </tr>
-            @empty
-                
-            @endforelse
-        </tbody>
         <tfoot>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Actions</th>
             </tr>
         </tfoot>
     </table>
@@ -33,12 +27,17 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            var table = $('#example').DataTable();
-            
-            $('#example tbody').on('click', 'tr', function () {
-                var data = table.row( this ).data();
-                alert( 'You clicked on '+data[0]+'\'s row' );
-            } );
+            $('#example').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{!! route('data.user') !!}',
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' },
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
         } );
     </script>
 @endpush
